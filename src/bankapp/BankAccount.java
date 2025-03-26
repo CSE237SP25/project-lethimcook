@@ -69,10 +69,21 @@ public class BankAccount {
         this.withdraw(amount);
         recipient.deposit(amount);
     }
+ MoneyReciever
 
 	
 	public double getCurrentBalance() {
 		return this.balance;
 	}
+ main
+
+    
+    public void setPassword(String newPassword) {
+    	this.password=newPassword;
+    }
+    
+    public void setUsername(String newUsername) {
+        this.username = newUsername;
+    }
  main
 }
