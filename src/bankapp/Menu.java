@@ -6,7 +6,7 @@ public class Menu {
 	private BankAccount theAccount;
 
 	public Menu() {
-		theAccount = new BankAccount();
+		theAccount = new BankAccount(null, null, null);
 	}
 
 	// display methods don't need to be tested

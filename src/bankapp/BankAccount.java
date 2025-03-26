@@ -2,9 +2,15 @@ package bankapp;
 
 public class BankAccount {
 	private double balance;
+	private String username;
+	private String accountNumber;
+	private String password;
 
-	public BankAccount() {
-		this.balance = 0.0;
+	public BankAccount(String username, String password, String accountNumber) {
+		this.balance = 0;
+	    this.username = username;
+	    this.password = password;
+	    this.accountNumber = accountNumber;
 	}
 
 	public void deposit(double amount) {
@@ -27,4 +33,17 @@ public class BankAccount {
 	public double getBalance() {
 		return this.balance;
 	}
+	
+	public String getUsername() {
+        return username;
+    }
+    
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+    
+    public boolean validatePassword(String password) {
+        return this.password.equals(password);
+    }
+
 }

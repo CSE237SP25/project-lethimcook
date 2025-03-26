@@ -11,7 +11,7 @@ public class BankAccountTests {
 	@Test
 	public void testSimpleDeposit() {
 		// 1. Create objects to be tested
-		BankAccount account = new BankAccount();
+		BankAccount account = new BankAccount(null, null, null);
 
 		// 2. Call the method being tested
 		account.deposit(25);
@@ -23,7 +23,7 @@ public class BankAccountTests {
 	@Test
 	public void testNegativeDeposit() {
 		// 1. Create object to be tested
-		BankAccount account = new BankAccount();
+		BankAccount account = new BankAccount(null, null, null);
 
 		try {
 			account.deposit(-25);
@@ -35,13 +35,13 @@ public class BankAccountTests {
 
 	@Test
 	public void testInitialBalance() {
-		BankAccount account = new BankAccount();
+		BankAccount account = new BankAccount(null, null, null);
 		assertEquals(0.0, account.getBalance(), 0.001);
 	}
 
 	@Test
 	public void testWithdraw() {
-		BankAccount account = new BankAccount();
+		BankAccount account = new BankAccount(null, null, null);
 		account.deposit(100.0);
 		account.withdraw(50.0);
 		assertEquals(50.0, account.getBalance(), 0.001);
@@ -49,13 +49,13 @@ public class BankAccountTests {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testNegativeWithdraw() {
-		BankAccount account = new BankAccount();
+		BankAccount account = new BankAccount(null, null, null);
 		account.withdraw(-50.0);
 	}
 
 	@Test(expected = IllegalStateException.class)
 	public void testInsufficientFunds() {
-		BankAccount account = new BankAccount();
+		BankAccount account = new BankAccount(null, null, null);
 		account.withdraw(100.0);
 	}
 
