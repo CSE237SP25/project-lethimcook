@@ -1,17 +1,21 @@
 package bankapp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BillPayment {
     private Bank bank;
+    private List<String> paymentHistory;
     
     public BillPayment(Bank bank) {
         if (bank == null) {
             throw new IllegalArgumentException("Bank cannot be null");
         }
         this.bank = bank;
+        this.paymentHistory = new ArrayList<>();
     }
     
     public void payBill(BankAccount account, String billProvider, double amount) {
-        // Validate bill payment parameters
         if (account == null) {
             throw new IllegalArgumentException("Bank account cannot be null");
         }
@@ -25,15 +29,20 @@ public class BillPayment {
         }
         
         try {
-            // Attempt to withdraw the amount from the account
             account.withdraw(amount);
-            
-            // Optional: You could log the bill payment details here
-            System.out.println("Bill paid successfully: " + 
-                               billProvider + " - $" + String.format("%.2f", amount));
+            String paymentRecord = "Paid " + billProvider + " - $" + String.format("%.2f", amount);
+            paymentHistory.add(paymentRecord);
+            System.out.println("Bill paid successfully: " + paymentRecord);
         } catch (IllegalStateException e) {
-            // This will catch insufficient funds error from BankAccount
             throw new IllegalStateException("Insufficient funds to pay bill");
         }
+    }
+    
+    public boolean isValidBillProvider(String billProvider) {
+        return billProvider != null && !billProvider.trim().isEmpty();
+    }
+    
+    public List<String> getPaymentHistory() {
+        return new ArrayList<>(paymentHistory);
     }
 }

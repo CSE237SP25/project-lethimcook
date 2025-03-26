@@ -1,6 +1,7 @@
 package bankapp;
 
 public class BankAccount {
+ MoneyReciever
 	private double balance;
 	private String username;
 	private String accountNumber;
@@ -15,10 +16,22 @@ public class BankAccount {
 
 	public void deposit(double amount) {
 		if (amount < 0) {
+
+
+	private double balance;
+	
+	public BankAccount() {
+		this.balance = 0;
+	}
+	
+	public void deposit(double amount) {
+		if(amount < 0) {
+ main
 			throw new IllegalArgumentException();
 		}
 		this.balance += amount;
 	}
+ MoneyReciever
 
 	public void withdraw(double amount) {
 		if (amount <= 0) {
@@ -56,6 +69,14 @@ public class BankAccount {
         this.withdraw(amount);
         recipient.deposit(amount);
     }
+ MoneyReciever
+
+	
+	public double getCurrentBalance() {
+		return this.balance;
+	}
+ main
+
     
     public void setPassword(String newPassword) {
     	this.password=newPassword;
@@ -64,4 +85,5 @@ public class BankAccount {
     public void setUsername(String newUsername) {
         this.username = newUsername;
     }
+ main
 }

@@ -1,5 +1,6 @@
 package bankapp;
 
+ MoneyReciever
 import java.util.Scanner;
 
 public class Menu {
@@ -162,3 +163,8 @@ public class Menu {
         return currentAccount;
     }
 }
+
+public class Menu {
+
+}
+ main
