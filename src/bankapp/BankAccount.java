@@ -60,4 +60,8 @@ public class BankAccount {
     public void setPassword(String newPassword) {
     	this.password=newPassword;
     }
+    
+    public void setUsername(String newUsername) {
+        this.username = newUsername;
+    }
 }

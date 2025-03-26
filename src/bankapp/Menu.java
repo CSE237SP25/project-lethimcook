@@ -28,6 +28,7 @@ public class Menu {
         System.out.println("3. Check Balance");
         System.out.println("4. Logout");
         System.out.println("5. Change Password");
+        System.out.println("6. Change Username");
         System.out.print("Enter your choice: ");
     }
     
@@ -120,6 +121,36 @@ public class Menu {
         String newPwd = keyboardInput.next();
         currentAccount.setPassword(newPwd);
         System.out.println("Password changed successfully!");
+    }
+    
+    public void changeUsername() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+
+        System.out.print("Enter current password: ");
+        String currentPwd = keyboardInput.next();
+
+        if (!currentAccount.validatePassword(currentPwd)) {
+            System.out.println("Incorrect password.");
+            return;
+        }
+
+        System.out.print("Enter new username: ");
+        String newUsername = keyboardInput.next();
+
+        BankAccount existing = theBank.getAccount(newUsername);
+        if (existing != null) {
+            System.out.println("Username already taken.");
+            return;
+        }
+
+        String oldUsername = currentAccount.getUsername();
+        currentAccount.setUsername(newUsername);
+        theBank.updateUsername(oldUsername, currentAccount);
+
+        System.out.println("Username changed successfully!");
     }
     
     public void logout() {

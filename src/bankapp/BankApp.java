@@ -51,6 +51,9 @@ public class BankApp {
                         case 5:
                             menu.changePassword();
                             break;
+                        case 6:
+                            menu.changeUsername();
+                            break;
                         default:
                             System.out.println("Invalid choice!");
                     }
