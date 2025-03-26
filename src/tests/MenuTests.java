@@ -1,5 +1,6 @@
 package tests;
 
+ MoneyReciever
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -18,4 +19,8 @@ public class MenuTests {
 		BankAccount account = m.getCurrentAccount();
 		assertEquals(account.getBalance(), 25.0, 0.005);
 	}
+
+public class MenuTests {
+
+ main
 }
