@@ -15,7 +15,7 @@ public class MenuTests {
 		// 2. Call method being tested
 		m.processUserInput(25);
 		// 3. Use assertions to verify correctness
-		BankAccount account = m.getAccount();
+		BankAccount account = m.getCurrentAccount();
 		assertEquals(account.getBalance(), 25.0, 0.005);
 	}
 }

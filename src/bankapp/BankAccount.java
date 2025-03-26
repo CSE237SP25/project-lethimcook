@@ -45,5 +45,15 @@ public class BankAccount {
     public boolean validatePassword(String password) {
         return this.password.equals(password);
     }
-
+    
+    public void transfer(BankAccount recipient, double amount) {
+        if(amount < 0) {
+            throw new IllegalArgumentException("Transfer amount cannot be negative");
+        }
+        if(amount > balance) {
+            throw new IllegalStateException("Insufficient funds for transfer");
+        }
+        this.withdraw(amount);
+        recipient.deposit(amount);
+    }
 }
