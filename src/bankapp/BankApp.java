@@ -48,6 +48,12 @@ public class BankApp {
                             menu.logout();
                             loggedIn = false;
                             break;
+                        case 5:
+                            menu.changePassword();
+                            break;
+                        case 6:
+                            menu.changeUsername();
+                            break;
                         default:
                             System.out.println("Invalid choice!");
                     }
