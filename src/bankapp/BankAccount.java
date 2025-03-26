@@ -56,4 +56,8 @@ public class BankAccount {
         this.withdraw(amount);
         recipient.deposit(amount);
     }
+    
+    public void setPassword(String newPassword) {
+    	this.password=newPassword;
+    }
 }

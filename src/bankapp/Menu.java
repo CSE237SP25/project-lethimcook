@@ -27,6 +27,7 @@ public class Menu {
         System.out.println("2. Transfer Money");
         System.out.println("3. Check Balance");
         System.out.println("4. Logout");
+        System.out.println("5. Change Password");
         System.out.print("Enter your choice: ");
     }
     
@@ -99,6 +100,26 @@ public class Menu {
             return;
         }
         System.out.println("Current balance: $" + currentAccount.getBalance());
+    }
+    
+    public void changePassword() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+
+        System.out.print("Enter current password: ");
+        String currentPwd = keyboardInput.next();
+
+        if (!currentAccount.validatePassword(currentPwd)) {
+            System.out.println("Incorrect password.");
+            return;
+        }
+
+        System.out.print("Enter new password: ");
+        String newPwd = keyboardInput.next();
+        currentAccount.setPassword(newPwd);
+        System.out.println("Password changed successfully!");
     }
     
     public void logout() {
