@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
- MoneyReciever
 import org.junit.Test;
 import bankapp.BankAccount;
 
@@ -25,30 +24,6 @@ public class BankAccountTests {
 	public void testNegativeDeposit() {
 		// 1. Create object to be tested
 		BankAccount account = new BankAccount(null, null, null);
-=======
-import org.junit.jupiter.api.Test;
-
-import bankapp.BankAccount;
-
-public class BankAccountTests {
-
-	@Test
-	public void testSimpleDeposit() {
-		//1. Create objects to be tested
-		BankAccount account = new BankAccount();
-		
-		//2. Call the method being tested
-		account.deposit(25);
-		
-		//3. Use assertions to verify results
-		assertEquals(account.getCurrentBalance(), 25.0, 0.005);
-	}
-	
-	@Test
-	public void testNegativeDeposit() {
-		//1. Create object to be tested
-		BankAccount account = new BankAccount();
- main
 
 		try {
 			account.deposit(-25);
@@ -57,7 +32,6 @@ public class BankAccountTests {
 			assertTrue(e != null);
 		}
 	}
- MoneyReciever
 
 	@Test
 	public void testInitialBalance() {
@@ -85,6 +59,4 @@ public class BankAccountTests {
 		account.withdraw(100.0);
 	}
 
-
- main
 }

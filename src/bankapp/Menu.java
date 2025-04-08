@@ -1,6 +1,5 @@
 package bankapp;
 
- MoneyReciever
 import java.util.Scanner;
 
 public class Menu {
@@ -27,9 +26,10 @@ public class Menu {
         System.out.println("1. Deposit");
         System.out.println("2. Transfer Money");
         System.out.println("3. Check Balance");
-        System.out.println("4. Logout");
+        System.out.println("4. View Transaction History");
         System.out.println("5. Change Password");
         System.out.println("6. Change Username");
+        System.out.println("7. Logout");
         System.out.print("Enter your choice: ");
     }
     
@@ -104,6 +104,14 @@ public class Menu {
         System.out.println("Current balance: $" + currentAccount.getBalance());
     }
     
+    public void displayTransactionHistory() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+        currentAccount.displayTransactionHistory();
+    }
+    
     public void changePassword() {
         if (currentAccount == null) {
             System.out.println("Please login first!");
@@ -163,8 +171,3 @@ public class Menu {
         return currentAccount;
     }
 }
-
-public class Menu {
-
-}
- main

@@ -45,14 +45,17 @@ public class BankApp {
                             menu.checkBalance();
                             break;
                         case 4:
-                            menu.logout();
-                            loggedIn = false;
+                            menu.displayTransactionHistory();
                             break;
                         case 5:
                             menu.changePassword();
                             break;
                         case 6:
                             menu.changeUsername();
+                            break;
+                        case 7:
+                            menu.logout();
+                            loggedIn = false;
                             break;
                         default:
                             System.out.println("Invalid choice!");
