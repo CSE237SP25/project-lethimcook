@@ -2,6 +2,7 @@ package bankapp;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
 
 public class BankAccount {
 
@@ -10,6 +11,8 @@ public class BankAccount {
 	private String password;
 	private String accountNumber;
 	private List<Transaction> transactionHistory;
+	private double interestRate;
+	private LocalDateTime lastInterestApplied;
 	
 	public BankAccount(String username, String password, String accountNumber) {
 		this.balance = 0;
@@ -17,6 +20,13 @@ public class BankAccount {
 		this.password = password;
 		this.accountNumber = accountNumber;
 		this.transactionHistory = new ArrayList<>();
+		this.interestRate = 0.5;
+		this.lastInterestApplied = LocalDateTime.now();
+	}
+	
+	public BankAccount(String username, String password, String accountNumber, double interestRate) {
+		this(username, password, accountNumber);
+		this.interestRate = interestRate;
 	}
 	
 	public void deposit(double amount) {
@@ -67,7 +77,7 @@ public class BankAccount {
 	}
 	
 	public List<Transaction> getTransactionHistory() {
-		return new ArrayList<>(transactionHistory);  // Return a copy to prevent external modification
+		return new ArrayList<>(transactionHistory); 
 	}
 	
 	public void displayTransactionHistory() {
@@ -85,5 +95,44 @@ public class BankAccount {
 	
 	public void setUsername(String newUsername) {
 		this.username = newUsername;
+	}
+	
+	public double getInterestRate() {
+		return interestRate;
+	}
+	
+	public void setInterestRate(double newRate) {
+		if (newRate < 0) {
+			throw new IllegalArgumentException("Interest rate cannot be negative");
+		}
+		this.interestRate = newRate;
+	}
+	
+	public LocalDateTime getLastInterestApplied() {
+		return lastInterestApplied;
+	}
+	
+	public double calculateInterest() {
+		LocalDateTime now = LocalDateTime.now();
+		long days = java.time.Duration.between(lastInterestApplied, now).toDays();
+		
+		if (days <= 0) {
+			return 0.0;
+		}
+		
+		//calculate interest: Principal * Rate * Time
+		double dailyRate = interestRate / 100.0 / 365.0;
+		double interest = balance * dailyRate * days;
+		
+		return interest;
+	}
+	public double applyInterest() {
+		double interest = calculateInterest();
+		if (interest > 0) {
+			this.balance += interest;
+			transactionHistory.add(new Transaction("INTEREST", interest, accountNumber, null));
+			lastInterestApplied = LocalDateTime.now();
+		}
+		return interest;
 	}
 }

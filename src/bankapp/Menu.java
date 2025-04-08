@@ -29,7 +29,9 @@ public class Menu {
         System.out.println("4. View Transaction History");
         System.out.println("5. Change Password");
         System.out.println("6. Change Username");
-        System.out.println("7. Logout");
+        System.out.println("7. Apply Interest");
+        System.out.println("8. View Interest Rate");
+        System.out.println("9. Logout");
         System.out.print("Enter your choice: ");
     }
     
@@ -160,6 +162,32 @@ public class Menu {
         theBank.updateUsername(oldUsername, currentAccount);
 
         System.out.println("Username changed successfully!");
+    }
+    
+    public void applyInterest() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+        
+        double interest = currentAccount.calculateInterest();
+        if (interest <= 0) {
+            System.out.println("No interest to apply at this time.");
+            return;
+        }
+        
+        double appliedInterest = currentAccount.applyInterest();
+        System.out.printf("Interest applied: $%.2f%n", appliedInterest);
+        System.out.printf("New balance: $%.2f%n", currentAccount.getBalance());
+    }
+    
+    public void viewInterestRate() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+        
+        System.out.printf("Current interest rate: %.2f%% per year%n", currentAccount.getInterestRate());
     }
     
     public void logout() {

@@ -54,6 +54,12 @@ public class BankApp {
                             menu.changeUsername();
                             break;
                         case 7:
+                            menu.applyInterest();
+                            break;
+                        case 8:
+                            menu.viewInterestRate();
+                            break;
+                        case 9:
                             menu.logout();
                             loggedIn = false;
                             break;
