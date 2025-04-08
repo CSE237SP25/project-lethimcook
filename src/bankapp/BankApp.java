@@ -54,12 +54,15 @@ public class BankApp {
                             menu.changeUsername();
                             break;
                         case 7:
-                            menu.applyInterest();
+                            menu.changeNickname();  // New feature invoked here
                             break;
                         case 8:
-                            menu.viewInterestRate();
+                            menu.applyInterest();
                             break;
                         case 9:
+                            menu.viewInterestRate();
+                            break;
+                        case 10:
                             menu.logout();
                             loggedIn = false;
                             break;
@@ -73,4 +76,4 @@ public class BankApp {
         System.out.println("Thank you for using our banking application!");
         scanner.close();
     }
-} 
+}

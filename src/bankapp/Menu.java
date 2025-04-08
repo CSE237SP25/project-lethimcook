@@ -21,6 +21,7 @@ public class Menu {
         System.out.print("Enter your choice: ");
     }
     
+    // Updated logged in menu with new option for changing nickname.
     public void displayLoggedInMenu() {
         System.out.println("\n=== Account Menu ===");
         System.out.println("1. Deposit");
@@ -29,9 +30,10 @@ public class Menu {
         System.out.println("4. View Transaction History");
         System.out.println("5. Change Password");
         System.out.println("6. Change Username");
-        System.out.println("7. Apply Interest");
-        System.out.println("8. View Interest Rate");
-        System.out.println("9. Logout");
+        System.out.println("7. Change Nickname");  // New option
+        System.out.println("8. Apply Interest");
+        System.out.println("9. View Interest Rate");
+        System.out.println("10. Logout");
         System.out.print("Enter your choice: ");
     }
     
@@ -162,6 +164,22 @@ public class Menu {
         theBank.updateUsername(oldUsername, currentAccount);
 
         System.out.println("Username changed successfully!");
+    }
+    
+    // New method for changing the account nickname
+    public void changeNickname() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+        System.out.print("Enter new nickname: ");
+        String newNickname = keyboardInput.next();
+        try {
+            currentAccount.setNickname(newNickname);
+            System.out.println("Nickname changed successfully! New nickname: " + currentAccount.getNickname());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
     
     public void applyInterest() {

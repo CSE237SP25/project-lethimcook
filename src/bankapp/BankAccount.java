@@ -14,6 +14,9 @@ public class BankAccount {
 	private double interestRate;
 	private LocalDateTime lastInterestApplied;
 	
+	// New field for account nickname
+	private String nickname;
+	
 	public BankAccount(String username, String password, String accountNumber) {
 		this.balance = 0;
 		this.username = username;
@@ -22,6 +25,8 @@ public class BankAccount {
 		this.transactionHistory = new ArrayList<>();
 		this.interestRate = 0.5;
 		this.lastInterestApplied = LocalDateTime.now();
+		// Default nickname is the same as the username
+		this.nickname = username;
 	}
 	
 	public BankAccount(String username, String password, String accountNumber, double interestRate) {
@@ -134,5 +139,17 @@ public class BankAccount {
 			lastInterestApplied = LocalDateTime.now();
 		}
 		return interest;
+	}
+	
+	// New feature: Account Nickname functionality
+	public String getNickname() {
+		return this.nickname;
+	}
+	
+	public void setNickname(String newNickname) {
+		if (newNickname == null || newNickname.trim().isEmpty()) {
+			throw new IllegalArgumentException("Nickname cannot be empty");
+		}
+		this.nickname = newNickname;
 	}
 }
