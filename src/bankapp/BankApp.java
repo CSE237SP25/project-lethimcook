@@ -54,7 +54,7 @@ public class BankApp {
                             menu.changeUsername();
                             break;
                         case 7:
-                            menu.changeNickname();  // New feature invoked here
+                            menu.changeNickname();
                             break;
                         case 8:
                             menu.applyInterest();
@@ -63,6 +63,12 @@ public class BankApp {
                             menu.viewInterestRate();
                             break;
                         case 10:
+                            menu.setSavingsGoal();
+                            break;
+                        case 11:
+                            menu.viewSavingsGoalProgress();
+                            break;
+                        case 12:
                             menu.logout();
                             loggedIn = false;
                             break;

@@ -21,7 +21,6 @@ public class Menu {
         System.out.print("Enter your choice: ");
     }
     
-    // Updated logged in menu with new option for changing nickname.
     public void displayLoggedInMenu() {
         System.out.println("\n=== Account Menu ===");
         System.out.println("1. Deposit");
@@ -30,10 +29,12 @@ public class Menu {
         System.out.println("4. View Transaction History");
         System.out.println("5. Change Password");
         System.out.println("6. Change Username");
-        System.out.println("7. Change Nickname");  // New option
+        System.out.println("7. Change Nickname");
         System.out.println("8. Apply Interest");
         System.out.println("9. View Interest Rate");
-        System.out.println("10. Logout");
+        System.out.println("10. Set Savings Goal");       
+        System.out.println("11. View Savings Goal Progress"); 
+        System.out.println("12. Logout");
         System.out.print("Enter your choice: ");
     }
     
@@ -121,15 +122,12 @@ public class Menu {
             System.out.println("Please login first!");
             return;
         }
-
         System.out.print("Enter current password: ");
         String currentPwd = keyboardInput.next();
-
         if (!currentAccount.validatePassword(currentPwd)) {
             System.out.println("Incorrect password.");
             return;
         }
-
         System.out.print("Enter new password: ");
         String newPwd = keyboardInput.next();
         currentAccount.setPassword(newPwd);
@@ -141,32 +139,25 @@ public class Menu {
             System.out.println("Please login first!");
             return;
         }
-
         System.out.print("Enter current password: ");
         String currentPwd = keyboardInput.next();
-
         if (!currentAccount.validatePassword(currentPwd)) {
             System.out.println("Incorrect password.");
             return;
         }
-
         System.out.print("Enter new username: ");
         String newUsername = keyboardInput.next();
-
         BankAccount existing = theBank.getAccount(newUsername);
         if (existing != null) {
             System.out.println("Username already taken.");
             return;
         }
-
         String oldUsername = currentAccount.getUsername();
         currentAccount.setUsername(newUsername);
         theBank.updateUsername(oldUsername, currentAccount);
-
         System.out.println("Username changed successfully!");
     }
     
-    // New method for changing the account nickname
     public void changeNickname() {
         if (currentAccount == null) {
             System.out.println("Please login first!");
@@ -187,13 +178,11 @@ public class Menu {
             System.out.println("Please login first!");
             return;
         }
-        
         double interest = currentAccount.calculateInterest();
         if (interest <= 0) {
             System.out.println("No interest to apply at this time.");
             return;
         }
-        
         double appliedInterest = currentAccount.applyInterest();
         System.out.printf("Interest applied: $%.2f%n", appliedInterest);
         System.out.printf("New balance: $%.2f%n", currentAccount.getBalance());
@@ -204,8 +193,35 @@ public class Menu {
             System.out.println("Please login first!");
             return;
         }
-        
         System.out.printf("Current interest rate: %.2f%% per year%n", currentAccount.getInterestRate());
+    }
+    
+    public void setSavingsGoal() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+        System.out.print("Enter new savings goal amount: ");
+        double goal = keyboardInput.nextDouble();
+        try {
+            currentAccount.setSavingsGoal(goal);
+            System.out.println("Savings goal set to: $" + String.format("%.2f", currentAccount.getSavingsGoal()));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    
+    public void viewSavingsGoalProgress() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+        double progress = currentAccount.getSavingsGoalProgressPercentage();
+        double remaining = currentAccount.getRemainingAmountToSavingsGoal();
+        System.out.printf("Savings Goal: $%.2f%n", currentAccount.getSavingsGoal());
+        System.out.printf("Current Balance: $%.2f%n", currentAccount.getBalance());
+        System.out.printf("Progress: %.2f%% complete%n", progress);
+        System.out.printf("Remaining amount to reach goal: $%.2f%n", remaining);
     }
     
     public void logout() {
