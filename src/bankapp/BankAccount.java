@@ -15,6 +15,7 @@ public class BankAccount {
     private LocalDateTime lastInterestApplied;
     private String nickname;
     private double savingsGoal;
+    private boolean isFrozen = false;
     
     public BankAccount(String username, String password, String accountNumber) {
         this.balance = 0;
@@ -34,14 +35,22 @@ public class BankAccount {
     }
     
     public void deposit(double amount) {
+    	if (isFrozen) {
+    	        throw new IllegalStateException("Account is frozen. Cannot deposit.");
+    	}
         if (amount < 0) {
             throw new IllegalArgumentException("Deposit amount must be positive");
         }
         this.balance += amount;
         transactionHistory.add(new Transaction("DEPOSIT", amount, accountNumber, null));
+        
+        
     }
     
     public void withdraw(double amount) {
+    	if (isFrozen) {
+            throw new IllegalStateException("Account is frozen. Cannot withdraw.");
+        }
         if (amount <= 0) {
             throw new IllegalArgumentException("Withdrawal amount must be positive");
         }
@@ -174,5 +183,17 @@ public class BankAccount {
     public double getRemainingAmountToSavingsGoal() {
         double remaining = savingsGoal - balance;
         return remaining > 0 ? remaining : 0;
+    }
+    
+    public void freezeAccount() {
+        isFrozen = true;
+    }
+
+    public void unfreezeAccount() {
+        isFrozen = false;
+    }
+
+    public boolean isFrozen() {
+        return isFrozen;
     }
 }

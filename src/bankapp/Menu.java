@@ -34,7 +34,11 @@ public class Menu {
         System.out.println("9. View Interest Rate");
         System.out.println("10. Set Savings Goal");       
         System.out.println("11. View Savings Goal Progress"); 
-        System.out.println("12. Logout");
+        
+        System.out.println("12. Freeze Account");
+
+        System.out.println("13. Unfreeze Account");
+        System.out.println("14. Logout");
         System.out.print("Enter your choice: ");
     }
     
@@ -231,5 +235,23 @@ public class Menu {
     
     public BankAccount getCurrentAccount() {
         return currentAccount;
+    }
+    
+    public void freezeAccount() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+        currentAccount.freezeAccount();
+        System.out.println("Account has been frozen.");
+    }
+
+    public void unfreezeAccount() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+        currentAccount.unfreezeAccount();
+        System.out.println("Account has been unfrozen.");
     }
 }

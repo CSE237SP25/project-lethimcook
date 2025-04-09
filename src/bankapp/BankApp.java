@@ -69,6 +69,12 @@ public class BankApp {
                             menu.viewSavingsGoalProgress();
                             break;
                         case 12:
+                            menu.freezeAccount();
+                            break;
+                        case 13:
+                            menu.unfreezeAccount();
+                            break;
+                        case 14:
                             menu.logout();
                             loggedIn = false;
                             break;
