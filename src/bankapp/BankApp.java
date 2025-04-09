@@ -45,8 +45,7 @@ public class BankApp {
                             menu.checkBalance();
                             break;
                         case 4:
-                            menu.logout();
-                            loggedIn = false;
+                            menu.displayTransactionHistory();
                             break;
                         case 5:
                             menu.changePassword();
@@ -54,6 +53,41 @@ public class BankApp {
                         case 6:
                             menu.changeUsername();
                             break;
+                        case 7:
+                            menu.changeNickname();
+                            break;
+                        case 8:
+                            menu.applyInterest();
+                            break;
+                        case 9:
+                            menu.viewInterestRate();
+                            break;
+                        case 10:
+                            menu.setSavingsGoal();
+                            break;
+                        case 11:
+                            menu.viewSavingsGoalProgress();
+                            break;
+                        case 12:
+                            menu.freezeAccount();
+                            break;
+                        case 13:
+                            menu.unfreezeAccount();
+                            break;
+                        case 14:
+                            menu.logout();
+                            loggedIn = false;
+                        case 15:
+                            menu.setSpendingLimit();
+                            break;
+                        case 16:
+                            menu.viewMonthlySpending();
+                            break;
+                        case 17:
+                            menu.logout();
+                            loggedIn = false;
+                            break;
+                            
                         default:
                             System.out.println("Invalid choice!");
                     }
@@ -64,4 +98,4 @@ public class BankApp {
         System.out.println("Thank you for using our banking application!");
         scanner.close();
     }
-} 
+}

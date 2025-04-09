@@ -35,8 +35,9 @@ public class Bank {
     public boolean accountExists(String username) {
         return accounts.containsKey(username);
     }
+    
     public void updateUsername(String oldUsername, BankAccount account) {
         accounts.remove(oldUsername);
         accounts.put(account.getUsername(), account);
     }
-}
+} 
