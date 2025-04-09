@@ -39,6 +39,9 @@ public class Menu {
 
         System.out.println("13. Unfreeze Account");
         System.out.println("14. Logout");
+        System.out.println("15. Set Monthly Spending Limit");
+        System.out.println("16. View Monthly Spending");
+        System.out.println("17. Logout");
         System.out.print("Enter your choice: ");
     }
     
@@ -253,5 +256,33 @@ public class Menu {
         }
         currentAccount.unfreezeAccount();
         System.out.println("Account has been unfrozen.");
+    }
+    public void setSpendingLimit() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+        System.out.print("Enter new monthly spending limit: ");
+        double limit = keyboardInput.nextDouble();
+        currentAccount.setMonthlySpendingLimit(limit);
+        System.out.println("Spending limit set to $" + String.format("%.2f", limit));
+    }
+
+    public void viewMonthlySpending() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+        double spent = currentAccount.getMonthlySpending();
+        double limit = currentAccount.getMonthlySpendingLimit();
+        System.out.printf("You've spent $%.2f this month.\n", spent);
+        if (limit > 0) {
+            System.out.printf("Your limit is $%.2f.\n", limit);
+            if (currentAccount.isOverSpendingLimit()) {
+                System.out.println("⚠️ You are over your spending limit!");
+            }
+        } else {
+            System.out.println("You have not set a spending limit.");
+        }
     }
 }

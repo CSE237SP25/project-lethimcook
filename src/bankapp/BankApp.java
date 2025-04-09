@@ -77,7 +77,17 @@ public class BankApp {
                         case 14:
                             menu.logout();
                             loggedIn = false;
+                        case 15:
+                            menu.setSpendingLimit();
                             break;
+                        case 16:
+                            menu.viewMonthlySpending();
+                            break;
+                        case 17:
+                            menu.logout();
+                            loggedIn = false;
+                            break;
+                            
                         default:
                             System.out.println("Invalid choice!");
                     }

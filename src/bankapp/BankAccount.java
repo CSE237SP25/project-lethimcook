@@ -16,6 +16,7 @@ public class BankAccount {
     private String nickname;
     private double savingsGoal;
     private boolean isFrozen = false;
+    private double monthlySpendingLimit = 0;
     
     public BankAccount(String username, String password, String accountNumber) {
         this.balance = 0;
@@ -195,5 +196,30 @@ public class BankAccount {
 
     public boolean isFrozen() {
         return isFrozen;
+    }
+    public void setMonthlySpendingLimit(double limit) {
+        if (limit < 0) {
+            throw new IllegalArgumentException("Limit must be non-negative");
+        }
+        this.monthlySpendingLimit = limit;
+    }
+
+    public double getMonthlySpendingLimit() {
+        return monthlySpendingLimit;
+    }
+    public double getMonthlySpending() {
+        double total = 0;
+        LocalDateTime now = LocalDateTime.now();
+        for (Transaction t : transactionHistory) {
+            if ((t.getType().equals("WITHDRAW") || t.getType().equals("TRANSFER"))
+                    && t.getTimestamp().getMonth() == now.getMonth()
+                    && t.getTimestamp().getYear() == now.getYear()) {
+                total += t.getAmount();
+            }
+        }
+        return total;
+    }
+    public boolean isOverSpendingLimit() {
+        return monthlySpendingLimit > 0 && getMonthlySpending() > monthlySpendingLimit;
     }
 }
