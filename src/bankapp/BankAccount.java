@@ -36,6 +36,10 @@ public class BankAccount {
     }
     
     public void deposit(double amount) {
+        deposit(amount, null);
+    }
+
+    public void deposit(double amount, String note) {
     	if (isFrozen) {
     	        throw new IllegalStateException("Account is frozen. Cannot deposit.");
     	}
@@ -43,12 +47,14 @@ public class BankAccount {
             throw new IllegalArgumentException("Deposit amount must be positive");
         }
         this.balance += amount;
-        transactionHistory.add(new Transaction("DEPOSIT", amount, accountNumber, null));
-        
-        
+        transactionHistory.add(new Transaction("DEPOSIT", amount, accountNumber, null, note));
     }
     
     public void withdraw(double amount) {
+        withdraw(amount, null);
+    }
+
+    public void withdraw(double amount, String note) {
     	if (isFrozen) {
             throw new IllegalStateException("Account is frozen. Cannot withdraw.");
         }
@@ -59,10 +65,17 @@ public class BankAccount {
             throw new IllegalStateException("Insufficient funds");
         }
         this.balance -= amount;
-        transactionHistory.add(new Transaction("WITHDRAW", amount, accountNumber, null));
+        transactionHistory.add(new Transaction("WITHDRAW", amount, accountNumber, null, note));
     }
     
     public void transfer(BankAccount recipient, double amount) {
+        transfer(recipient, amount, null);
+    }
+
+    public void transfer(BankAccount recipient, double amount, String note) {
+        if (recipient == null) {
+            throw new IllegalArgumentException("Recipient account cannot be null");
+        }
         if(amount < 0) {
             throw new IllegalArgumentException("Transfer amount cannot be negative");
         }
@@ -71,7 +84,7 @@ public class BankAccount {
         }
         this.withdraw(amount);
         recipient.deposit(amount);
-        transactionHistory.add(new Transaction("TRANSFER", amount, accountNumber, recipient.getAccountNumber()));
+        transactionHistory.add(new Transaction("TRANSFER", amount, accountNumber, recipient.getAccountNumber(), note));
     }
     
     public double getBalance() {
@@ -134,7 +147,6 @@ public class BankAccount {
             return 0.0;
         }
         
-        // Calculate interest: Principal * Rate * Time
         double dailyRate = interestRate / 100.0 / 365.0;
         double interest = balance * dailyRate * days;
         

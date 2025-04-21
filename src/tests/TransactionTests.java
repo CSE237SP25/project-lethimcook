@@ -59,7 +59,7 @@ public class TransactionTests {
         String toString = transaction.toString();
         
         assertTrue(toString.contains("Deposit of $100.00"));
-        assertTrue(toString.contains(transaction.getTimestamp().toString()));
+        assertTrue(toString.contains(transaction.getTimestamp().toLocalDate().toString()));
     }
     
     @Test
@@ -86,5 +86,52 @@ public class TransactionTests {
         
         assertEquals(999999.99, transaction.getAmount(), 0.001);
         assertTrue(transaction.getDescription().contains("$999999.99"));
+    }
+    
+    @Test
+    public void testTransactionWithNote() {
+        Transaction transaction = new Transaction("TRANSFER", 75.0, "ACC123", "ACC456", "Rent payment");
+        
+        assertEquals("TRANSFER", transaction.getType());
+        assertEquals(75.0, transaction.getAmount(), 0.001);
+        assertEquals("ACC123", transaction.getFromAccount());
+        assertEquals("ACC456", transaction.getToAccount());
+        assertEquals("Rent payment", transaction.getNote());
+        assertTrue(transaction.getDescription().contains("Transfer of $75.00"));
+        assertTrue(transaction.getDescription().contains("ACC456"));
+    }
+    
+    @Test
+    public void testTransactionWithEmptyNote() {
+        Transaction transaction = new Transaction("TRANSFER", 75.0, "ACC123", "ACC456", "");
+        
+        assertNull(transaction.getNote());
+    }
+    
+    @Test
+    public void testTransactionWithNullNote() {
+        Transaction transaction = new Transaction("TRANSFER", 75.0, "ACC123", "ACC456", null);
+        
+        assertNull(transaction.getNote());
+    }
+    
+    @Test
+    public void testTransactionToStringWithNote() {
+        Transaction transaction = new Transaction("TRANSFER", 75.0, "ACC123", "ACC456", "Rent payment");
+        String toString = transaction.toString();
+        
+        assertTrue(toString.contains("Transfer of $75.00"));
+        assertTrue(toString.contains("ACC456"));
+        assertTrue(toString.contains("Rent payment"));
+    }
+    
+    @Test
+    public void testTransactionToStringWithoutNote() {
+        Transaction transaction = new Transaction("TRANSFER", 75.0, "ACC123", "ACC456", null);
+        String toString = transaction.toString();
+        
+        assertTrue(toString.contains("Transfer of $75.00"));
+        assertTrue(toString.contains("ACC456"));
+        assertFalse(toString.contains("Note:"));
     }
 } 
