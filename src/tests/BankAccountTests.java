@@ -99,5 +99,41 @@ public class BankAccountTests {
 		Transaction lastTransaction = sender.getTransactionHistory().get(sender.getTransactionHistory().size() - 1);
 		assertNull(lastTransaction.getNote());
 	}
+	@Test
+	public void testEmptyAccountStatistics() {
+		BankAccount account = new BankAccount("user1", "pass1", "ACC001");
+		assertEquals(0.0, account.getAverageTransactionAmount(), 0.001);
+		assertNull(account.getLargestTransaction());
+		assertEquals("No transactions", account.getMostFrequentTransactionType());
+		assertEquals("No transactions", account.getMostActiveDay());
+	}
 
+	@Test
+	public void testAverageTransactionAmount() {
+		BankAccount account = new BankAccount("user1", "pass1", "ACC001");
+		account.deposit(100.0);
+		account.deposit(50.0);
+		account.withdraw(30.0);
+		assertEquals(60.0, account.getAverageTransactionAmount(), 0.001);
+	}
+
+	@Test
+	public void testLargestTransaction() {
+		BankAccount account = new BankAccount("user1", "pass1", "ACC001");
+		account.deposit(100.0);
+		account.deposit(50.0);
+		account.withdraw(30.0);
+		Transaction largest = account.getLargestTransaction();
+		assertEquals(100.0, largest.getAmount(), 0.001);
+		assertEquals("DEPOSIT", largest.getType());
+	}
+
+	@Test
+	public void testMostFrequentTransactionType() {
+		BankAccount account = new BankAccount("user1", "pass1", "ACC001");
+		account.deposit(100.0);
+		account.deposit(50.0);
+		account.withdraw(30.0);
+		assertEquals("DEPOSIT", account.getMostFrequentTransactionType());
+	}
 }
