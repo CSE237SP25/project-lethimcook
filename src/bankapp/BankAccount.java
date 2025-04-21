@@ -3,6 +3,8 @@ package bankapp;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDateTime;
+import java.util.Map;
+import java.util.HashMap;
 
 public class BankAccount {
 
@@ -147,6 +149,7 @@ public class BankAccount {
             return 0.0;
         }
         
+        // Calculate interest: Principal * Rate * Time
         double dailyRate = interestRate / 100.0 / 365.0;
         double interest = balance * dailyRate * days;
         
@@ -233,5 +236,89 @@ public class BankAccount {
     }
     public boolean isOverSpendingLimit() {
         return monthlySpendingLimit > 0 && getMonthlySpending() > monthlySpendingLimit;
+    }
+
+    // Account Statistics Methods
+    public double getAverageTransactionAmount() {
+        if (transactionHistory.isEmpty()) {
+            return 0.0;
+        }
+        double total = 0.0;
+        for (Transaction t : transactionHistory) {
+            total += t.getAmount();
+        }
+        return total / transactionHistory.size();
+    }
+
+    public Transaction getLargestTransaction() {
+        if (transactionHistory.isEmpty()) {
+            return null;
+        }
+        Transaction largest = transactionHistory.get(0);
+        for (Transaction t : transactionHistory) {
+            if (t.getAmount() > largest.getAmount()) {
+                largest = t;
+            }
+        }
+        return largest;
+    }
+
+    public String getMostFrequentTransactionType() {
+        if (transactionHistory.isEmpty()) {
+            return "No transactions";
+        }
+        
+        Map<String, Integer> typeCounts = new HashMap<>();
+        for (Transaction t : transactionHistory) {
+            String type = t.getType();
+            typeCounts.put(type, typeCounts.getOrDefault(type, 0) + 1);
+        }
+        
+        String mostFrequent = null;
+        int maxCount = 0;
+        for (Map.Entry<String, Integer> entry : typeCounts.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                maxCount = entry.getValue();
+                mostFrequent = entry.getKey();
+            }
+        }
+        return mostFrequent;
+    }
+
+    public String getMostActiveDay() {
+        if (transactionHistory.isEmpty()) {
+            return "No transactions";
+        }
+        
+        Map<String, Integer> dayCounts = new HashMap<>();
+        for (Transaction t : transactionHistory) {
+            String dayOfWeek = t.getTimestamp().getDayOfWeek().toString();
+            dayCounts.put(dayOfWeek, dayCounts.getOrDefault(dayOfWeek, 0) + 1);
+        }
+        
+        String mostActive = null;
+        int maxCount = 0;
+        for (Map.Entry<String, Integer> entry : dayCounts.entrySet()) {
+            if (entry.getValue() > maxCount) {
+                maxCount = entry.getValue();
+                mostActive = entry.getKey();
+            }
+        }
+        return mostActive;
+    }
+
+    public void displayAccountStatistics() {
+        System.out.println("\n=== Account Statistics ===");
+        System.out.printf("Average Transaction Amount: $%.2f%n", getAverageTransactionAmount());
+        
+        Transaction largest = getLargestTransaction();
+        if (largest != null) {
+            System.out.printf("Largest Transaction: $%.2f (%s)%n", 
+                largest.getAmount(), largest.getType());
+        }
+        
+        System.out.println("Most Frequent Transaction Type: " + getMostFrequentTransactionType());
+        System.out.println("Most Active Day: " + getMostActiveDay());
+        System.out.println("========================");
     }
 }

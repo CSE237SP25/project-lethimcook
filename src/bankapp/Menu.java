@@ -34,11 +34,9 @@ public class Menu {
         System.out.println("9. View Interest Rate");
         System.out.println("10. Set Savings Goal");       
         System.out.println("11. View Savings Goal Progress"); 
-        
         System.out.println("12. Freeze Account");
-
         System.out.println("13. Unfreeze Account");
-        System.out.println("14. Logout");
+        System.out.println("14. View Account Statistics");
         System.out.println("15. Set Monthly Spending Limit");
         System.out.println("16. View Monthly Spending");
         System.out.println("17. Logout");
@@ -93,7 +91,7 @@ public class Menu {
         String recipientUsername = keyboardInput.next();
         System.out.print("Enter transfer amount: ");
         double amount = keyboardInput.nextDouble();
-        keyboardInput.nextLine();
+        keyboardInput.nextLine(); // Consume newline after number
         System.out.print("Add an optional note (press Enter to skip): ");
         String note = keyboardInput.nextLine();
         
@@ -282,10 +280,18 @@ public class Menu {
         if (limit > 0) {
             System.out.printf("Your limit is $%.2f.\n", limit);
             if (currentAccount.isOverSpendingLimit()) {
-                System.out.println("You are over your spending limit!");
+                System.out.println("⚠️ You are over your spending limit!");
             }
         } else {
             System.out.println("You have not set a spending limit.");
         }
+    }
+
+    public void viewAccountStatistics() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+        currentAccount.displayAccountStatistics();
     }
 }

@@ -122,17 +122,19 @@ public class BankApp {
                     case 13: //unfreeze account
                         menu.unfreezeAccount();
                         break;
-                    case 14: //logout
-                    case 17: //also logout
-                        menu.logout();
-                        loggedIn = false;
-                        break;
+                    case 14:
+                    	menu.viewAccountStatistics();
+                    	break;//view stats
                     case 15: //set monthly spending limit
                         menu.setSpendingLimit();
                          break;
                     case 16: //view monthly spending
                          menu.viewMonthlySpending();
                          break;
+                    case 17: //logout
+                        menu.logout();
+                        loggedIn = false;
+                        break;
                     default:
                          if (choice != -1) {
                             System.out.println("Invalid choice! Please try again.");
