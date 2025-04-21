@@ -93,6 +93,9 @@ public class Menu {
         String recipientUsername = keyboardInput.next();
         System.out.print("Enter transfer amount: ");
         double amount = keyboardInput.nextDouble();
+        keyboardInput.nextLine();
+        System.out.print("Add an optional note (press Enter to skip): ");
+        String note = keyboardInput.nextLine();
         
         BankAccount recipient = theBank.getAccount(recipientUsername);
         if (recipient == null) {
@@ -101,7 +104,7 @@ public class Menu {
         }
         
         try {
-            currentAccount.transfer(recipient, amount);
+            currentAccount.transfer(recipient, amount, note);
             System.out.println("Transfer successful!");
         } catch (IllegalArgumentException | IllegalStateException e) {
             System.out.println("Error: " + e.getMessage());
@@ -279,7 +282,7 @@ public class Menu {
         if (limit > 0) {
             System.out.printf("Your limit is $%.2f.\n", limit);
             if (currentAccount.isOverSpendingLimit()) {
-                System.out.println("⚠️ You are over your spending limit!");
+                System.out.println("You are over your spending limit!");
             }
         } else {
             System.out.println("You have not set a spending limit.");
