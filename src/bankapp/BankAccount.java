@@ -339,4 +339,24 @@ public class BankAccount {
         }
         return recent;
     }
+    
+    public double getTotalDeposits() {
+        double sum = 0.0;
+        for (Transaction t : transactionHistory) {
+            if ("DEPOSIT".equals(t.getType())) {
+                sum += t.getAmount();
+            }
+        }
+        return sum;
+    }
+
+    public double getTotalWithdrawals() {
+        double sum = 0.0;
+        for (Transaction t : transactionHistory) {
+            if ("WITHDRAW".equals(t.getType())) {
+                sum += t.getAmount();
+            }
+        }
+        return sum;
+    }
 }
