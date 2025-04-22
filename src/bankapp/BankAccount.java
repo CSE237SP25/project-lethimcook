@@ -321,4 +321,22 @@ public class BankAccount {
         System.out.println("Most Active Day: " + getMostActiveDay());
         System.out.println("========================");
     }
+    
+    /**
+     * Returns up to the last n transactions, most-recent first.
+     * @param n number of recent transactions to return; must be non-negative
+     * @throws IllegalArgumentException if n < 0
+     */
+    public List<Transaction> getRecentTransactions(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Number of transactions must be non-negative");
+        }
+        List<Transaction> history = getTransactionHistory();  // chronological order
+        int size = history.size();
+        List<Transaction> recent = new ArrayList<>();
+        for (int i = size - 1; i >= 0 && recent.size() < n; i--) {
+            recent.add(history.get(i));
+        }
+        return recent;
+    }
 }
