@@ -131,7 +131,15 @@ public class BankApp {
                     case 16: //view monthly spending
                          menu.viewMonthlySpending();
                          break;
-                    case 17: //logout
+                    case 17:
+                        CurrencyConverter.convertCurrency();
+                        break;
+                    case 18:
+                        currentAccount.togglePrivacyMode();
+                        String status = currentAccount.isPrivacyModeOn() ? "ON" : "OFF";
+                        System.out.println("Privacy mode is now " + status);
+                        break;
+                    case 19:
                         menu.logout();
                         loggedIn = false;
                         break;
@@ -139,6 +147,7 @@ public class BankApp {
                          if (choice != -1) {
                             System.out.println("Invalid choice! Please try again.");
                          }
+                     
                 }
             } catch (IllegalArgumentException | IllegalStateException e) {
                 System.out.println("Error: " + e.getMessage());
