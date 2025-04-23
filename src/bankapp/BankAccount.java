@@ -85,8 +85,8 @@ public class BankAccount {
         if(amount > balance) {
             throw new IllegalStateException("Insufficient funds for transfer");
         }
-        this.withdraw(amount);
-        recipient.deposit(amount);
+        this.withdraw(amount, note);
+        recipient.deposit(amount, note);
         transactionHistory.add(new Transaction("TRANSFER", amount, accountNumber, recipient.getAccountNumber(), note));
     }
     

@@ -71,21 +71,30 @@ public class BankApp {
 
             try {
                 switch (choice) {
-                    case 1: //deposit
-                        System.out.print("Enter deposit amount: ");
-                        double depositAmount = -1;
-                        try {
-                             depositAmount = scanner.nextDouble();
-                        } catch (InputMismatchException e) {
-                            System.out.println("Invalid amount. Please enter a number.");
-                        } finally {
-                             scanner.nextLine(); // Consume newline
-                        }
-                        if (depositAmount != -1) {
-                             currentAccount.deposit(depositAmount);
-                             System.out.println("Deposit successful. New balance: " + String.format("%.2f", currentAccount.getBalance()));
-                        }
-                        break;
+                	case 1: //deposit
+                		System.out.print("Enter deposit amount: ");
+                		double depositAmount = -1;
+                		String depositNote = null;
+                		try {
+                			depositAmount = scanner.nextDouble();
+                			scanner.nextLine();
+
+                			System.out.print("Add an optional note (press Enter to skip): ");
+                			depositNote = scanner.nextLine();
+
+                		} catch (InputMismatchException e) {
+                			System.out.println("Invalid amount. Please enter a number.");
+                			if (scanner.hasNextLine()) {
+                				scanner.nextLine();
+                			}
+                		} 
+                		if (depositAmount != -1 && depositAmount > 0) {
+                			currentAccount.deposit(depositAmount, depositNote);
+                			System.out.println("Deposit successful. New balance: " + String.format("%.2f", currentAccount.getBalance()));
+                		} else if (depositAmount != -1) {
+                         	System.out.println("Deposit amount must be positive.");
+                    	}
+                    break;
                     case 2: //transfer money
                         menu.transferMoney();
                         break;
