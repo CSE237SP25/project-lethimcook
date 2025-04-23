@@ -42,6 +42,7 @@ public class Menu {
         System.out.println("17. Convert USD to Euro");
         System.out.println("18. Toggle Privacy Mode");
         System.out.println("19. Logout");
+        System.out.println("20. View Account Number");
         System.out.print("Enter your choice: ");
     }
     
@@ -116,11 +117,7 @@ public class Menu {
             System.out.println("Please login first!");
             return;
         }
-        if (currentAccount.isPrivacyModeOn()) {
-            System.out.println("Current balance: [HIDDEN]");
-        } else {
-            System.out.println("Current balance: $" + currentAccount.getBalance());
-        }
+        System.out.println("Current balance: $" + currentAccount.getBalance());
     }
     
     public void displayTransactionHistory() {
@@ -299,5 +296,13 @@ public class Menu {
             return;
         }
         currentAccount.displayAccountStatistics();
+    }
+
+    public void viewAccountNumber() {
+        if (currentAccount == null) {
+            System.out.println("Please login first!");
+            return;
+        }
+        System.out.println("Your Account Number: " + currentAccount.getAccountNumber());
     }
 }

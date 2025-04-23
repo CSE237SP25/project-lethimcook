@@ -131,17 +131,20 @@ public class BankApp {
                     case 16: //view monthly spending
                          menu.viewMonthlySpending();
                          break;
-                    case 17:
+                    case 17: //convert currency
                         CurrencyConverter.convertCurrency();
                         break;
-                    case 18:
+                    case 18: //toggle privacy mode
                         currentAccount.togglePrivacyMode();
                         String status = currentAccount.isPrivacyModeOn() ? "ON" : "OFF";
                         System.out.println("Privacy mode is now " + status);
                         break;
-                    case 19:
+                    case 19: //logout
                         menu.logout();
                         loggedIn = false;
+                        break;
+                    case 20: //view account number
+                        menu.viewAccountNumber();
                         break;
                     default:
                          if (choice != -1) {
