@@ -19,6 +19,7 @@ public class BankAccount {
     private double savingsGoal;
     private boolean isFrozen = false;
     private double monthlySpendingLimit = 0;
+    private boolean privacyMode = false;
     
     public BankAccount(String username, String password, String accountNumber) {
         this.balance = 0;
@@ -112,8 +113,14 @@ public class BankAccount {
     public void displayTransactionHistory() {
         System.out.println("\nTransaction History for Account " + accountNumber + ":");
         System.out.println("----------------------------------------");
-        for (Transaction transaction : transactionHistory) {
-            System.out.println(transaction);
+        for (Transaction transaction:transactionHistory) {
+            if (privacyMode){
+                System.out.printf("[%s] %s\n", 
+                    transaction.getTimestamp().toLocalDate(), 
+                    transaction.getType() + " - [HIDDEN]");
+            } else {
+                System.out.println(transaction);
+            }
         }
         System.out.println("----------------------------------------");
     }
@@ -349,6 +356,14 @@ public class BankAccount {
         }
         return sum;
     }
+   
+    public void togglePrivacyMode() {
+        privacyMode = !privacyMode;
+    }
+
+    public boolean isPrivacyModeOn() {
+        return privacyMode;
+    }
 
     public double getTotalWithdrawals() {
         double sum = 0.0;
@@ -359,4 +374,5 @@ public class BankAccount {
         }
         return sum;
     }
+    
 }
